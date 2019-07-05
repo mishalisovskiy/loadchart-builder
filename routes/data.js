@@ -7,5 +7,5 @@ const { arrayParser, Stack } = require('../utils/dataUtils');
 router.post('/', async (req, res) => {
     const { logs } = req.body;
     const parsedArray = arrayParser(logs);
-    const logInstance = Object.entries(parsedArray)
+    // parsing here
 });
