@@ -26,14 +26,14 @@ class App extends React.Component {
       };
       return (
           <li color="info" key={url.url}>
-            '{url.url}': {url.avgDelay} ({url.minBatchDelay} / {url.maxBatchDelay}) {convertTsToTime(url.tsStart)} -- {convertTsToTime(url.tsEnd)}
+            '{url.url}': {url.avgDelay} ({url.avgDelay - url.prevAvgDelay}) {convertTsToTime(url.tsEnd)}
           </li>
       );
     });
     
     return (
       <div>
-        {urls.length > 0 ? <ul className="url-summary">{urlSummary}</ul> : <Container>No results found!</Container>}
+        {urls.length > 0 ? <ul id="url-summary">{urlSummary}</ul> : <Container>No results found!</Container>}
       </div>
     );
   }
