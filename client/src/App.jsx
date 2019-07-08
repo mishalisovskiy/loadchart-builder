@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import { Alert, Container } from 'reactstrap';
+import { Container } from 'reactstrap';
 
 import './App.css';
 
@@ -22,23 +22,18 @@ class App extends React.Component {
       const convertTsToTime = (ts) => {
         const date = new Date();
         date.setTime(ts);
-        return `${date.toLocaleString('uk-ua')}`
+        return `${date.toLocaleTimeString('uk-ua')}`
       };
       return (
-          <Alert color="info">
-            {`URL: ${url.url};\n
-            First Request in Last 5 Batches: ${convertTsToTime(url.tsStart)};\n
-            Last Request in Last 5 Batches: ${convertTsToTime(url.tsEnd)};\n
-            Min Average Delay in Last 5 Batches: ${url.minBatchDelay};\n
-            Max Average Delay in Last 5 Batches: ${url.maxBatchDelay};\n
-            Average Delay for Last 5 Batches: ${url.avgDelay}`}
-          </Alert>
+          <li color="info" key={url.url}>
+            '{url.url}': {url.avgDelay} ({url.minBatchDelay} / {url.maxBatchDelay}) {convertTsToTime(url.tsStart)} -- {convertTsToTime(url.tsEnd)}
+          </li>
       );
     });
     
     return (
       <div>
-        {urls.length > 0 ? <Container className="url-summary">{urlSummary}</Container> : <Container>No results found!</Container>}
+        {urls.length > 0 ? <ul className="url-summary">{urlSummary}</ul> : <Container>No results found!</Container>}
       </div>
     );
   }

@@ -32,15 +32,15 @@ router.post('/', async (req, res) => {
   // Calculating average delay for each URL
   Object.entries(data).forEach(([url, urlData]) => {
     const avgDelay = urlData.logs.reduce((acc, value) => { return acc + value.avgDelay }, 0) / urlData.logs.length;
-    data[url].avgDelay = avgDelay;
+    data[url].avgDelay = Math.floor(avgDelay);
   });
 
   // Finding min and max delay for each URL
   Object.entries(data).forEach(([url, urlData]) => {
     const delays = [];
     urlData.logs.forEach(log => delays.push(log.avgDelay));
-    data[url].minBatchDelay = Math.min(...delays);
-    data[url].maxBatchDelay = Math.max(...delays);
+    data[url].minBatchDelay = Math.floor(Math.min(...delays));
+    data[url].maxBatchDelay = Math.floor(Math.max(...delays));
   });
 
   await writeFile(path.resolve(__dirname, '..', 'averagedLogs.json'), JSON.stringify(data));
