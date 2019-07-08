@@ -1,10 +1,74 @@
 {
-  "urls": {
-    "/about": {
-      "avgDelay": 0,
-      "logs": [
-
-      ]
-    }
+  "first": {
+    "logs": [{
+      "tsStart": 562321946127,
+      "tsEnd": 562321946323,
+      "avgDelay": 37.333333333333336
+    }, {
+      "tsStart": 562321946127,
+      "tsEnd": 562321946323,
+      "avgDelay": 4.333333333333333
+    }, {
+      "tsStart": 562321946127,
+      "tsEnd": 562321946323,
+      "avgDelay": 4.333333333333333
+    }, {
+      "tsStart": 562321946127,
+      "tsEnd": 562321946323,
+      "avgDelay": 4.333333333333333
+    }, {
+      "tsStart": 562321946127,
+      "tsEnd": 562321946323,
+      "avgDelay": 4.333333333333333
+    }],
+    "avgDelay": 10.933333333333335
+  },
+  "second": {
+    "logs": [{
+      "tsStart": 562321946100,
+      "tsEnd": 562321946323,
+      "avgDelay": 4
+    }, {
+      "tsStart": 562321946100,
+      "tsEnd": 562321946323,
+      "avgDelay": 4
+    }, {
+      "tsStart": 562321946100,
+      "tsEnd": 562321946323,
+      "avgDelay": 4
+    }, {
+      "tsStart": 562321946100,
+      "tsEnd": 562321946323,
+      "avgDelay": 4
+    }, {
+      "tsStart": 562321946100,
+      "tsEnd": 562321946323,
+      "avgDelay": 4
+    }],
+    "avgDelay": 4
+  },
+  "third": {
+    "logs": [{
+      "tsStart": 562321942341,
+      "tsEnd": 562321943456,
+      "avgDelay": 8
+    }, {
+      "tsStart": 562321942341,
+      "tsEnd": 562321943456,
+      "avgDelay": 8
+    }, {
+      "tsStart": 562321942341,
+      "tsEnd": 562321943456,
+      "avgDelay": 8
+    }, {
+      "tsStart": 562321942341,
+      "tsEnd": 562321943456,
+      "avgDelay": 8
+    }, {
+      "tsStart": 562321942341,
+      "tsEnd": 562321943456,
+      "avgDelay": 8
+    }],
+    "avgDelay": 8
   }
 }
