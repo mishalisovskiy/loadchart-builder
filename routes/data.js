@@ -31,9 +31,17 @@ router.post('/', async (req, res) => {
   });
 
   // Calculating average delay for each URL
-  Object.entries(data).forEach(([url, info]) => {
-    const avgDelay = info.logs.reduce((acc, value) => { return acc + value.avgDelay }, 0) / info.logs.length;
+  Object.entries(data).forEach(([url, urlData]) => {
+    const avgDelay = urlData.logs.reduce((acc, value) => { return acc + value.avgDelay }, 0) / urlData.logs.length;
     data[url].avgDelay = avgDelay;
+  });
+
+  // Finding min and max delay for each URL
+  Object.entries(data).forEach(([url, urlData]) => {
+    const delays = [];
+    urlData.logs.forEach(log => delays.push(log.avgDelay));
+    data[url].minBatchDelay = Math.min(...delays);
+    data[url].maxBatchDelay = Math.max(...delays);
   });
 
   await writeFile(path.resolve(__dirname, '..', 'averagedLogs.json'), JSON.stringify(data));
@@ -41,8 +49,19 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-  const data = await readFile(path.resolve(__dirname, '..', 'averagedLogs.json'));
-  res.json(JSON.parse(data));
+  const dataRaw = await readFile(path.resolve(__dirname, '..', 'averagedLogs.json'));
+  const data = JSON.parse(dataRaw);
+  const dataToSend = Object.entries(data).reduce((acc, [url, urlData]) => {
+    return ([
+    ...acc, {
+    url,
+    avgDelay: urlData.avgDelay,
+    maxBatchDelay: urlData.maxBatchDelay,
+    minBatchDelay: urlData.minBatchDelay,
+    tsEnd: urlData.logs[urlData.logs.length - 1].tsEnd,
+    tsStart: urlData.logs[0].tsStart,
+  }])}, []);
+  res.json(dataToSend);
 });
 
 module.exports = router;
