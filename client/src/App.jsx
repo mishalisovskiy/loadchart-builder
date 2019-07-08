@@ -23,7 +23,7 @@ class App extends React.Component {
         const date = new Date();
         date.setTime(ts);
         return `${date.toLocaleString('uk-ua')}`
-      }
+      };
       return (
           <Alert color="info">
             {`URL: ${url.url};\n

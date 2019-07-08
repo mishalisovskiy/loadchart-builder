@@ -11,10 +11,9 @@ const writeFile = promisify(fs.writeFile);
 // route: POST /data
 // desc: posting new array of requests
 router.post('/', async (req, res) => {
-  const { entries } = req.body;
   const dataRaw = await readFile(path.resolve(__dirname, '..', 'averagedLogs.json'));
   const data = JSON.parse(dataRaw);
-  const logs = getLogEntries(entries);
+  const logs = getLogEntries(req.body);
   
   // Writing new entries to a file
   logs.forEach((elem) => {
