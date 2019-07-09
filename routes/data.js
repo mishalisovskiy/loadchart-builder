@@ -1,8 +1,10 @@
 const router = require('express').Router();
 const fs = require('fs');
-const { promisify } = require('util');
 const path = require('path');
+const axios = require('axios');
+const { promisify } = require('util');
 
+const { port } = require('../server');
 const { getLogEntries } = require('../utils/dataUtils');
 
 const readFile = promisify(fs.readFile);
@@ -11,6 +13,7 @@ const writeFile = promisify(fs.writeFile);
 // route: POST /data
 // desc: posting new array of requests
 router.post('/', async (req, res) => {
+  console.log(req.body);
   const dataRaw = await readFile(path.resolve(__dirname, '..', 'averagedLogs.json'));
   const data = JSON.parse(dataRaw);
   const logs = getLogEntries(req.body);
@@ -38,6 +41,7 @@ router.post('/', async (req, res) => {
 
   await writeFile(path.resolve(__dirname, '..', 'averagedLogs.json'), JSON.stringify(data));
   res.json({ msg: 'Logs uploaded' });
+  axios.get(`http://localhost:${port}/data`);
 });
 
 router.get('/', async (req, res) => {

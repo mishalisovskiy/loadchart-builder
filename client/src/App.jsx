@@ -13,11 +13,12 @@ class App extends React.Component {
   componentDidMount() {
     axios
       .get('/data')
-      .then(res => this.setState({urls: res.data}));
+      .then(res => this.setState({ urls: res.data }));
   }
 
   render() {
     const { urls } = this.state;
+    console.log(urls);
     const urlSummary = urls.map((url) => {
       const convertTsToTime = (ts) => {
         const date = new Date();

@@ -33,4 +33,14 @@ const getLogEntries = array => {
   }, []);
 };
 
-module.exports = { getLogEntries };
+const getApiAndEmit = async (socket) => {
+  try {
+    const res = await axios.get(`http://localhost:${port}/data`);
+    socket.emit("New_Url_Data", res.data); // Emitting a new message. It will be consumed by the client
+    console.log(res.data);
+  } catch (error) {
+    console.error(`${error}`);
+  }
+};
+
+module.exports = { getLogEntries, getApiAndEmit };
