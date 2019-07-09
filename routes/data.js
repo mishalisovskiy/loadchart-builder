@@ -31,8 +31,6 @@ router.post('/', async (req, res) => {
     }
   });
 
-  console.log(server);
-
   // Calculating average delay for each URL
   Object.entries(data).forEach(([url, urlData]) => {
     const avgDelay = urlData.logs.reduce((acc, value) => { return acc + value.avgDelay }, 0) / urlData.logs.length;

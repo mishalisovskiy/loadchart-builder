@@ -13,9 +13,9 @@ class App extends React.Component {
 
   componentDidMount() {
     axios
-      .get('http://localhost:4001/data')
+      .get('/data')
       .then(res => this.setState({ urls: res.data }));
-    const socket = socketIOClient.connect('http://localhost:4001');
+    const socket = socketIOClient.connect('/');
     socket.on("New_Data_Available", data => {
       console.log(data);
       const parsedJson = JSON.parse(data)
