@@ -1,4 +1,5 @@
 import React from 'react';
+import socketIOClient from 'socket.io-client';
 import axios from 'axios';
 
 import { Container } from 'reactstrap';
@@ -12,8 +13,18 @@ class App extends React.Component {
 
   componentDidMount() {
     axios
-      .get('/data')
+      .get('http://localhost:4001/data')
       .then(res => this.setState({ urls: res.data }));
+    const socket = socketIOClient.connect('http://localhost:4001');
+    socket.on("New_Data_Available", data => {
+      console.log(data);
+      const parsedJson = JSON.parse(data)
+      this.setState({ urls: parsedJson });
+    });
+  }
+
+  componentWillUnmount() {
+
   }
 
   render() {

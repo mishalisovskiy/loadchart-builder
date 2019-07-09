@@ -1,14 +1,28 @@
-const express = require("express");
-const http = require("http");
+const express = require('express');
+const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
-const port = process.env.PORT || 6000;
 const data = require('./routes/data');
 
-const app = express();
+const port = process.env.PORT || 4001;
+exports.port = port;
+// listen to socket connections
+io.on('connection', (socket) => {
+  console.log('new connection');
+});
+
+app.use(cors());
+app.use(bodyParser.json());
+
+app.use((request, __response, next) => {
+  request.io = io;
+  next();
+});
+
 app.use('/data', data);
 
-const server = http.createServer(app);
-
-server.listen(port, () => console.log(`Server running on port ${port}`));
-
-module.exports = { port };
+server.listen(port);
+console.log(`Listening on port ${port}...`);
