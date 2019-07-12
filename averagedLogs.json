@@ -1,3 +1,1 @@
-{
-  
-}
+{"/first":{"logs":[{"tsEnd":2562596308832,"avgDelay":1000},{"tsEnd":2562596308832,"avgDelay":1000},{"tsEnd":2562596308832,"avgDelay":1000},{"tsEnd":2562596308832,"avgDelay":1000}],"prevAvgDelay":1000,"avgDelay":1000},"/second":{"logs":[{"tsEnd":2562596308723,"avgDelay":1},{"tsEnd":2562596308723,"avgDelay":34},{"tsEnd":2562596308723,"avgDelay":34},{"tsEnd":2562596308723,"avgDelay":3333334}],"prevAvgDelay":23,"avgDelay":833350},"/third":{"logs":[{"tsEnd":2562596307765,"avgDelay":50.5},{"tsEnd":2562596307765,"avgDelay":550},{"tsEnd":2562596307765,"avgDelay":550},{"tsEnd":2562596307765,"avgDelay":550}],"prevAvgDelay":383,"avgDelay":425},"/api/cart/registerEditDeadline":{"logs":[{"tsEnd":25625907172,"avgDelay":10},{"tsEnd":25625907172,"avgDelay":100},{"tsEnd":25625907172,"avgDelay":100},{"tsEnd":25625907172,"avgDelay":100}],"prevAvgDelay":70,"avgDelay":77}}

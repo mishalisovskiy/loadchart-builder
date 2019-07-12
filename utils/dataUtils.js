@@ -1,31 +1,30 @@
-const url = require('url');
-
 const getLogEntries = array => {
   const parsedArray = array.reduce((acc, { url, timestamp, delay}) => {
+    let myUrl = '';
+    
+    // Removing query params
+    myUrl = url.includes('?') ? url.split('?').slice(0, 1).join('') : url;
+
+    // Checking if hash has to be removed
     const re = /\/api\/cart\/(getPaidCart|registerEditDeadline)/;
-    if (url.match(re) && url.split('/').length > 3) {
-      url = url.trim().split('/').slice(0, 4).join('/');
+    if (myUrl.match(re) && myUrl.split('/').length > 3) {
+      myUrl = myUrl.trim().split('/').slice(0, 4).join('/');
     }
 
-    if (acc[url]) {
-      return { ...acc, [url]: [ ...acc[url], { timestamp, delay } ] };
+    if (acc[myUrl]) {
+      return { ...acc, [myUrl]: [ ...acc[myUrl], { timestamp, delay } ] };
     }
   
-    return { ...acc, [url]: [{ timestamp, delay }] };
+    return { ...acc, [myUrl]: [{ timestamp, delay }] };
     }, {}
   );
   return Object.entries(parsedArray).reduce((acc, value) => {
     const [url, data] = value;
-    let tsStart;
     let tsEnd;
     const delays = [];
     data.forEach(({timestamp, delay}, index) => {
       if (index === 0) {
-        tsStart = timestamp;
         tsEnd = timestamp;
-        delays.push(delay);
-      } else if (timestamp < tsStart) {
-        tsStart = timestamp;
         delays.push(delay);
       } else if (timestamp > tsEnd) {
         tsEnd = timestamp;
@@ -35,7 +34,7 @@ const getLogEntries = array => {
       }
     });
     const avgDelay = delays.reduce((acc, value) => acc + value) / delays.length;
-    return [...acc, { url, tsStart, tsEnd, avgDelay }];
+    return [...acc, { url, tsEnd, avgDelay }];
   }, []);
 };
 

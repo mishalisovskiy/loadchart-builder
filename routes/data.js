@@ -22,12 +22,12 @@ router.post('/', async (req, res) => {
     if (data[elem.url]) {
       if (data[elem.url].logs && data[elem.url].logs.length >= 5) {
         data[elem.url].logs.shift();
-        data[elem.url].logs.push({ "tsStart": elem.tsStart, "tsEnd": elem.tsEnd, "avgDelay": elem.avgDelay });
+        data[elem.url].logs.push({ "tsEnd": elem.tsEnd, "avgDelay": elem.avgDelay });
       } else if (data[elem.url].logs) {
-        data[elem.url].logs.push({ "tsStart": elem.tsStart, "tsEnd": elem.tsEnd, "avgDelay": elem.avgDelay });
+        data[elem.url].logs.push({ "tsEnd": elem.tsEnd, "avgDelay": elem.avgDelay });
       }
     } else {
-      data[elem.url] = { "logs": [{ "tsStart": elem.tsStart, "tsEnd": elem.tsEnd, "avgDelay": elem.avgDelay }] };
+      data[elem.url] = { "logs": [{ "tsEnd": elem.tsEnd, "avgDelay": elem.avgDelay }] };
     }
   });
 
