@@ -34,7 +34,7 @@ router.post('/', async (req, res) => {
   // Calculating average delay for each URL
   Object.entries(data).forEach(([url, urlData]) => {
     const avgDelay = urlData.logs.reduce((acc, value) => { return acc + value.avgDelay }, 0) / urlData.logs.length;
-    data[url].prevAvgDelay = data[url].avgDelay;
+    data[url].prevAvgDelay = data[url].avgDelay ? data[url].avgDelay : 'Not enough data available';
     data[url].avgDelay = Math.floor(avgDelay);
   });
 
@@ -55,7 +55,6 @@ router.get('/', async (req, res) => {
     avgDelay: urlData.avgDelay,
     prevAvgDelay: urlData.prevAvgDelay,
     tsEnd: urlData.logs[urlData.logs.length - 1].tsEnd,
-    tsStart: urlData.logs[0].tsStart,
   }])}, []);
   res.json(dataToSend);
 });

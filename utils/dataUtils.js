@@ -1,8 +1,10 @@
+const url = require('url');
+
 const getLogEntries = array => {
   const parsedArray = array.reduce((acc, { url, timestamp, delay}) => {
-    const lastUrlElem = url.split('/').pop();
-    if (/^[0-9#]/.test(lastUrlElem)) {
-      url = url.split('/').slice(0, -1).join('/');
+    const re = /\/api\/cart\/(getPaidCart|registerEditDeadline)/;
+    if (url.match(re) && url.split('/').length > 3) {
+      url = url.trim().split('/').slice(0, 4).join('/');
     }
 
     if (acc[url]) {
@@ -18,7 +20,7 @@ const getLogEntries = array => {
     let tsEnd;
     const delays = [];
     data.forEach(({timestamp, delay}, index) => {
-      if (index === 1) {
+      if (index === 0) {
         tsStart = timestamp;
         tsEnd = timestamp;
         delays.push(delay);

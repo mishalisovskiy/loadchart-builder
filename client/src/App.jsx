@@ -29,7 +29,6 @@ class App extends React.Component {
 
   render() {
     const { urls } = this.state;
-    console.log(urls);
     const urlSummary = urls.map((url) => {
       const convertTsToTime = (ts) => {
         const date = new Date();
@@ -38,7 +37,7 @@ class App extends React.Component {
       };
       return (
           <li color="info" key={url.url}>
-            '{url.url}': {url.avgDelay} ({url.avgDelay - url.prevAvgDelay}) {convertTsToTime(url.tsEnd)}
+            '{url.url}': {url.avgDelay} ({url.prevAvgDelay === 'Not enough data available' ? url.prevAvgDelay : url.avgDelay - url.prevAvgDelay}) {convertTsToTime(url.tsEnd)}
           </li>
       );
     });
