@@ -1,6 +1,10 @@
 const getLogEntries = array => {
-  const parsedArray = array.reduce((acc, value) => {
-    const { url, timestamp, delay} = value;
+  const parsedArray = array.reduce((acc, { url, timestamp, delay}) => {
+    const lastUrlElem = url.split('/').pop();
+    if (/^[0-9#]/.test(lastUrlElem)) {
+      url = url.split('/').slice(0, -1).join('/');
+    }
+
     if (acc[url]) {
       return { ...acc, [url]: [ ...acc[url], { timestamp, delay } ] };
     }
